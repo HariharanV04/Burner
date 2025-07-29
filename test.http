@@ -1,0 +1,50 @@
+
+### Get all employees
+GET http://localhost:4004/odata/v4/burner/Employees
+
+### Get specific employee
+GET http://localhost:4004/odata/v4/burner/Employees('E001')
+
+### Get all work metrics
+GET http://localhost:4004/odata/v4/burner/WorkMetrics
+
+### Get work metrics for specific employee
+GET http://localhost:4004/odata/v4/burner/WorkMetrics?$filter=employee_ID eq 'E001'
+
+### Get all burnout metrics
+GET http://localhost:4004/odata/v4/burner/BurnoutMetrics
+
+### Get burnout metrics for specific employee
+GET http://localhost:4004/odata/v4/burner/BurnoutMetrics?$filter=employee_ID eq 'E001'
+
+### Get employee with work metrics
+GET http://localhost:4004/odata/v4/burner/Employees('E001')?$expand=workMetrics
+
+### Get employee with burnout metrics
+GET http://localhost:4004/odata/v4/burner/Employees('E001')?$expand=burnoutMetrics
+
+### Get employee with all related data
+GET http://localhost:4004/odata/v4/burner/Employees('E001')?$expand=workMetrics,burnoutMetrics
+
+### Create new employee
+POST http://localhost:4004/odata/v4/burner/Employees
+Content-Type: application/json
+
+{
+  "ID": "E011",
+  "name": "New Employee",
+  "department": "IT",
+  "role": "Developer"
+}
+
+### Update employee
+PATCH http://localhost:4004/odata/v4/burner/Employees('E001')
+Content-Type: application/json
+
+{
+  "department": "Senior Engineering"
+}
+
+### Delete employee
+DELETE http://localhost:4004/odata/v4/burner/Employees('E011')
+
