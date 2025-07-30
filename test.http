@@ -50,8 +50,9 @@ DELETE http://localhost:4004/odata/v4/burner/Employees('E011')
 
 ### RAG System Actions (Integrated in CAP Service)
 
-### Get RAG system status
-POST http://localhost:4004/odata/v4/burner/getRAGStatus()
+### Generate burnout metrics for all employees
+POST http://localhost:4004/odata/v4/burner/generateAllBurnoutMetrics
+Content-Type: application/json
 
 ### Generate burnout metrics for specific employee
 POST http://localhost:4004/odata/v4/burner/generateBurnoutMetrics
@@ -61,8 +62,9 @@ Content-Type: application/json
   "employeeId": "E001"
 }
 
-### Generate burnout metrics for all employees
-POST http://localhost:4004/odata/v4/burner/generateAllBurnoutMetrics
+### Get RAG system status
+GET http://localhost:4004/odata/v4/burner/getRAGStatus()
+#Content-Type: application/json
 
 ### Get burnout metrics for specific employee
 GET http://localhost:4004/odata/v4/burner/BurnoutMetrics?$filter=employee_ID eq 'E001'
