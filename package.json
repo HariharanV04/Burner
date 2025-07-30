@@ -7,23 +7,33 @@
   "private": true,
   "dependencies": {
     "@sap/cds": "^9",
-    "express": "^4"
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.1",
+    "express": "^4",
+    "fs-extra": "^11.3.0",
+    "path": "^0.12.7"
   },
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^2",
-    "@cap-js/cds-types": "^0.13.0"
+    "@cap-js/cds-types": "^0.13.0",
+    "@cap-js/sqlite": "^2"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds serve"
   },
-  
-  "cds": { "requires": {
-    "db": {
-       "kind": "sqlite",
-       "credentials": { "url": "db/emp.sqlite" }
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": "db/emp.sqlite"
+        }
+      },
+      "auth": {
+        "kind": "mocked"
+      }
     }
- }}
+  }
 }
