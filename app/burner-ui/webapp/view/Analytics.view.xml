@@ -84,13 +84,7 @@
                                             }"/>
                                         <Text id="analyticsCauseText" text="{cause}"/>
                                         <Text id="analyticsRecommendationText" text="{recommendation}" class="sapUiTinyText"/>
-                                        <Text id="analyticsDateText" text="{
-                                            path: 'createdAt',
-                                            type: 'sap.ui.model.odata.type.DateTimeOffset',
-                                            formatOptions: {
-                                                style: 'short'
-                                            }
-                                        }"/>
+                                        <Text id="analyticsDateText" text="Generated" class="sapUiTinyText"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>

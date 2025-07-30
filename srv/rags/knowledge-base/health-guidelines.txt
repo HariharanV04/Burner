@@ -1,13 +1,13 @@
-# Workplace Health Guidelines
+ Workplace Health Guidelines
 
 Maintaining good health in the workplace is crucial for long-term productivity, mental well-being, and prevention of health issues. Follow these guidelines to ensure proper workplace health:
 
-## 1. Physical Health
-- **Ergonomic Setup:** Ensure your desk, chair, and monitor are set up to maintain proper posture. Keep the screen at eye level and feet flat on the floor.
-- **Take Breaks:** Follow the 20-20-20 rule: Every 20 minutes, look at something 20 feet away for 20 seconds.
-- **Stretch Regularly:** Stand, stretch, or take a short walk every hour to prevent stiffness and musculoskeletal pain.
-- **Hydration:** Drink at least 2–3 liters of water daily to stay hydrated and improve focus.
-- **Proper Lighting:** Work in a well-lit environment to reduce eye strain and headaches.
+ 1. Physical Health
+- Ergonomic Setup: Ensure your desk, chair, and monitor are set up to maintain proper posture. Keep the screen at eye level and feet flat on the floor.
+- Take Breaks: Follow the 20-20-20 rule: Every 20 minutes, look at something 20 feet away for 20 seconds.
+- Stretch Regularly: Stand, stretch, or take a short walk every hour to prevent stiffness and musculoskeletal pain.
+- Hydration: Drink at least 2–3 liters of water daily to stay hydrated and improve focus.
+- Proper Lighting: Work in a well-lit environment to reduce eye strain and headaches.
 
 ## 2. Mental Well-being
 - **Stress Management:** Practice deep breathing, meditation, or mindfulness techniques during breaks.

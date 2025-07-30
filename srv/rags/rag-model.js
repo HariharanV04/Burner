@@ -15,18 +15,27 @@ class RAGModel {
         this.mistralEmbedModel = process.env.MISTRAL_EMBED_MODEL || 'mistral-embed';
         this.knowledgeBasePath = path.join(__dirname, 'knowledge-base');
         
-        // Initialize Qdrant client
-        this.qdrantClient = new QdrantClient({
-            url: process.env.QDRANT_URL,
-            apiKey: process.env.QDRANT_API_KEY,
-        });
+        // Initialize Qdrant client only if URL is available
+        if (process.env.QDRANT_URL) {
+            try {
+                this.qdrantClient = new QdrantClient({
+                    url: process.env.QDRANT_URL,
+                    apiKey: process.env.QDRANT_API_KEY,
+                });
+            } catch (error) {
+                console.warn('Failed to initialize Qdrant client:', error.message);
+                this.qdrantClient = null;
+            }
+        } else {
+            this.qdrantClient = null;
+        }
         this.collectionName = process.env.QDRANT_COLLECTION || 'burnout_knowledge';
         
         if (!this.mistralApiKey) {
-            throw new Error('MISTRAL_API_KEY is required in environment variables');
+            console.warn('MISTRAL_API_KEY is missing - AI features will be disabled');
         }
         if (!process.env.QDRANT_URL) {
-            throw new Error('QDRANT_URL is required in environment variables');
+            console.warn('QDRANT_URL is missing - vector database features will be disabled');
         }
     }
 
@@ -291,16 +300,19 @@ class RAGModel {
             
             const systemPrompt = `You are an expert HR analyst specializing in employee burnout assessment. 
             Use the provided knowledge base and employee work metrics to assess burnout risk.
-            
+
             Knowledge Base:
             ${combinedKnowledge}
-            
-            Analyze the employee data and provide:
-            1. Risk level (Low, Medium, High, Critical)
-            2. Primary causes of potential burnout
-            3. Specific recommendations for improvement
-            
-            Be concise but thorough in your analysis.`;
+
+            Analyze the employee data and provide a response in this EXACT format:
+
+            RISK LEVEL: [Low/Medium/High/Critical]
+
+            PRIMARY CAUSES: [Provide a clear, concise summary in plain text without bullet points, markdown, or special formatting]
+
+            RECOMMENDATIONS: [Provide actionable recommendations in plain text without any formatting, bullets, or markdown]
+
+            Use only plain text - no markdown, no bullets, no headers, no special characters.`;
 
             const userPrompt = `Analyze burnout risk for this employee:
             
@@ -502,6 +514,36 @@ class RAGModel {
                 status: 'error',
                 error: error.message,
                 url: process.env.QDRANT_URL
+            };
+        }
+    }
+
+    /**
+     * Test Qdrant with a sample query
+     */
+    async testQdrantQuery() {
+        try {
+            // Generate a test embedding
+            const testQuery = "employee burnout assessment";
+            const queryEmbedding = await this.generateEmbeddings([testQuery]);
+            
+            // Try to search (even if collection is empty)
+            const searchResult = await this.qdrantClient.search(this.collectionName, {
+                vector: queryEmbedding[0],
+                limit: 1,
+                with_payload: true
+            });
+            
+            return {
+                test_query: testQuery,
+                results_found: searchResult.length,
+                search_successful: true
+            };
+        } catch (error) {
+            return {
+                test_query: "employee burnout assessment",
+                search_successful: false,
+                error: error.message
             };
         }
     }

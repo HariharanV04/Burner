@@ -62,11 +62,7 @@
                                     formatter: '.formatRiskState'
                                 }"
                                 class="sapUiMediumMarginTop"/>
-                            <Text text="Last Assessment" class="sapUiTinyText sapUiTinyMarginTop"/>
-                            <Text text="{
-                                path: '/burnoutMetrics/generatedAt',
-                                formatter: '.formatDate'
-                            }" class="sapUiMediumText"/>
+                            <Text text="Assessment Available" class="sapUiMediumText"/>
                         </VBox>
                     </f:content>
                 </f:Card>

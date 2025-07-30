@@ -56,6 +56,21 @@ module.exports = cds.service.impl(async function() {
             const fs = require('fs-extra');
             const path = require('path');
 
+            // Get Qdrant status from burnout service
+            const qdrantStatus = await burnoutService.ragModel.getQdrantStatus();
+            
+            // Test Qdrant query capability (with error handling)
+            let queryTest = null;
+            try {
+                queryTest = await burnoutService.ragModel.testQdrantQuery();
+            } catch (error) {
+                queryTest = {
+                    test_query: "employee burnout assessment",
+                    search_successful: false,
+                    error: error.message
+                };
+            }
+
             const knowledgeBasePath = path.join(__dirname, 'rags/knowledge-base');
             const files = await fs.readdir(knowledgeBasePath);
             const knowledgeFiles = files.filter(file =>
@@ -65,9 +80,12 @@ module.exports = cds.service.impl(async function() {
             return {
                 success: true,
                 status: 'operational',
+                vector_database: qdrantStatus,
+                query_test: queryTest,
                 configuration: {
                     mistralModel: process.env.MISTRAL_MODEL || 'mistral-large-latest',
                     mistralApiConfigured: !!process.env.MISTRAL_API_KEY,
+                    qdrantConfigured: !!process.env.QDRANT_URL && !!process.env.QDRANT_API_KEY,
                     knowledgeBaseFiles: knowledgeFiles.length,
                     knowledgeFiles: knowledgeFiles
                 },

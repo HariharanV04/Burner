@@ -362,13 +362,7 @@
                                                     path: 'risk_level',
                                                     formatter: '.formatRiskState'
                                                 }"/>
-                                            <Text id="recentAssessmentDateText" text="{
-                                                path: 'createdAt',
-                                                type: 'sap.ui.model.odata.type.DateTimeOffset',
-                                                formatOptions: {
-                                                    style: 'short'
-                                                }
-                                            }"/>
+                                            <Text id="recentAssessmentDateText" text="Recent" class="sapUiTinyText"/>
                                             <HBox id="recentAssessmentActionsBox">
                                                 <Button id="recentViewDetailsBtn"
                                                     icon="sap-icon://detail-view"

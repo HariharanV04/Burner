@@ -1,4 +1,4 @@
-# Employee Burnout Assessment Guidelines
+Employee Burnout Assessment Guidelines
 
 ## Risk Level Definitions
 
