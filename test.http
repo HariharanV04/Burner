@@ -62,12 +62,22 @@ Content-Type: application/json
   "employeeId": "E001"
 }
 
-### Get RAG system status
+### Get RAG system status with Qdrant info
 GET http://localhost:4004/odata/v4/burner/getRAGStatus()
 #Content-Type: application/json
 
-### Get burnout metrics for specific employee
+### Get burnout metrics for specific employee 
 GET http://localhost:4004/odata/v4/burner/BurnoutMetrics?$filter=employee_ID eq 'E001'
+
+### Generate burnout metrics (now using Qdrant)
+POST http://localhost:4004/odata/v4/burner/generateBurnoutMetrics
+Content-Type: application/json
+
+{
+  "employeeId": "E001"
+}
+
+
 
 ### Get all burnout metrics
 GET http://localhost:4004/odata/v4/burner/BurnoutMetrics

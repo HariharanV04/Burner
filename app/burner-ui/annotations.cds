@@ -1,0 +1,1 @@
+using BurnerService as service from '../../srv/burner-service';

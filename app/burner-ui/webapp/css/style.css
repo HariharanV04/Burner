@@ -1,0 +1,370 @@
+/* Employee Burnout Management System - Custom Styles */
+
+/* Global Styles */
+.sapUiBody {
+    font-family: "72", "72full", Arial, Helvetica, sans-serif;
+}
+
+/* Dashboard Cards */
+.dashboard-card {
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+
+.dashboard-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    border-color: #0070f2;
+}
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* KPI Cards */
+.kpi-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.kpi-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.15);
+    border-color: #0070f2;
+}
+
+.kpi-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 10px 0;
+    background: linear-gradient(45deg, #0070f2, #00d4aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.kpi-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Chart Containers */
+.chart-container {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+}
+
+.chart-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+/* Progress Bars in Charts */
+.risk-progress-bar {
+    margin: 8px 0;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Risk Level Indicators */
+.risk-low {
+    color: #107e3e;
+    background-color: #f1f8f3;
+    border: 1px solid #107e3e;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.risk-medium {
+    color: #df6e0c;
+    background-color: #fef7f0;
+    border: 1px solid #df6e0c;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.risk-high {
+    color: #b00;
+    background-color: #ffebee;
+    border: 1px solid #b00;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.risk-critical {
+    color: #fff;
+    background-color: #b00;
+    border: 1px solid #b00;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-weight: bold;
+}
+
+/* Employee Table Enhancements */
+.employee-row {
+    transition: background-color 0.2s ease;
+}
+
+.employee-row:hover {
+    background-color: #f5f5f5;
+}
+
+/* Analytics Charts */
+.chart-container {
+    padding: 16px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* AI Recommendations */
+.ai-recommendation {
+    background: linear-gradient(135deg, #e8f4fd 0%, #d1e7dd 100%);
+    border: 1px solid #0070f2;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+/* Action Buttons */
+.action-button-primary {
+    background: #0070f2;
+    border-color: #0070f2;
+    color: white;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.action-button-primary:hover {
+    background: #0040a0;
+    border-color: #0040a0;
+    transform: translateY(-1px);
+}
+
+/* Status Indicators */
+.status-success { color: #107e3e; }
+.status-warning { color: #df6e0c; }
+.status-error { color: #b00; }
+.status-info { color: #0070f2; }
+
+/* Dashboard Specific Styles */
+.dashboard-header {
+    background: linear-gradient(135deg, #0070f2 0%, #00d4aa 100%);
+    color: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 20px rgba(0, 112, 242, 0.3);
+}
+
+.dashboard-section {
+    margin-bottom: 32px;
+}
+
+.dashboard-section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+/* Navigation Buttons */
+.nav-button {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-button:hover {
+    background: linear-gradient(135deg, #0070f2 0%, #00d4aa 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 112, 242, 0.3);
+    border-color: transparent;
+}
+
+.nav-button-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.nav-button-text {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Insights Panel */
+.insights-panel {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #dee2e6;
+}
+
+.insight-item {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid #0070f2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.insight-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.insight-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #495057;
+    margin-top: 4px;
+}
+
+/* Message Strips */
+.ai-message-strip {
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px 0;
+    border-left: 4px solid;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+}
+
+.ai-message-strip.success {
+    border-left-color: #28a745;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.ai-message-strip.warning {
+    border-left-color: #ffc107;
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+.ai-message-strip.error {
+    border-left-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.ai-message-strip.info {
+    border-left-color: #17a2b8;
+    background-color: rgba(23, 162, 184, 0.1);
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .kpi-card {
+        padding: 16px;
+    }
+
+    .kpi-value {
+        font-size: 2rem;
+    }
+
+    .dashboard-header {
+        padding: 16px;
+    }
+
+    .nav-button {
+        min-height: 60px;
+        padding: 12px;
+    }
+
+    .nav-button-icon {
+        font-size: 1.5rem;
+    }
+
+    .nav-button-text {
+        font-size: 0.875rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-container {
+        padding: 12px;
+    }
+
+    .insights-panel {
+        padding: 16px;
+    }
+
+    .insight-item {
+        padding: 8px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in-up {
+    animation: slideInUp 0.4s ease-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}

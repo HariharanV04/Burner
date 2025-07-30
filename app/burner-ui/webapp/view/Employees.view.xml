@@ -1,0 +1,160 @@
+<mvc:View
+    controllerName="burnerui.controller.Employees"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:core="sap.ui.core">
+
+    <Page id="employeesPage" title="Employee Management" showNavButton="false">
+        <content>
+            <VBox id="employeesContainer" class="sapUiMediumMargin">
+
+                <!-- Header with Actions -->
+                <Panel id="employeesHeaderPanel" class="sapUiMediumMarginBottom">
+                    <headerToolbar>
+                        <Toolbar id="employeesHeaderToolbar">
+                            <Title id="employeesTitle" text="Employee Management" level="H2"/>
+                            <ToolbarSpacer id="employeesHeaderSpacer"/>
+                            <Button
+                                id="refreshEmployeesBtn"
+                                text="Refresh"
+                                icon="sap-icon://refresh"
+                                press="onRefreshEmployees"
+                                class="sapUiTinyMarginEnd"/>
+                            <Button
+                                id="generateAllEmployeeMetricsBtn"
+                                text="Generate All Metrics"
+                                icon="sap-icon://generate-shortcut"
+                                type="Emphasized"
+                                press="onGenerateAllMetrics"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="employeesHeaderContent" class="sapUiMediumMargin">
+                            <Text id="employeesDescription" text="Manage employee data, view burnout assessments, and generate AI-powered insights." class="sapUiMediumText"/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Search and Filter Bar -->
+                <Panel id="searchFilterPanel" headerText="Search and Filter" class="sapUiMediumMarginBottom">
+                    <content>
+                        <Toolbar id="searchFilterToolbar" class="sapUiMediumMargin">
+                            <SearchField
+                                id="employeeSearchField"
+                                placeholder="Search employees..."
+                                width="300px"
+                                search="onSearch"
+                                class="sapUiMediumMarginEnd"/>
+                            <ComboBox
+                                id="departmentFilter"
+                                placeholder="Filter by Department"
+                                width="200px"
+                                selectionChange="onDepartmentFilter"
+                                class="sapUiMediumMarginEnd">
+                                <core:Item id="allDepartmentsItem" key="" text="All Departments"/>
+                                <core:Item id="engineeringItem" key="Engineering" text="Engineering"/>
+                                <core:Item id="salesItem" key="Sales" text="Sales"/>
+                                <core:Item id="marketingItem" key="Marketing" text="Marketing"/>
+                                <core:Item id="hrItem" key="HR" text="HR"/>
+                                <core:Item id="financeItem" key="Finance" text="Finance"/>
+                            </ComboBox>
+                            <ComboBox
+                                id="riskLevelFilter"
+                                placeholder="Filter by Risk Level"
+                                width="200px"
+                                selectionChange="onRiskLevelFilter"
+                                class="sapUiMediumMarginEnd">
+                                <core:Item id="allRiskLevelsItem" key="" text="All Risk Levels"/>
+                                <core:Item id="lowRiskItem" key="Low" text="Low Risk"/>
+                                <core:Item id="mediumRiskItem" key="Medium" text="Medium Risk"/>
+                                <core:Item id="highRiskItem" key="High" text="High Risk"/>
+                                <core:Item id="criticalRiskItem" key="Critical" text="Critical Risk"/>
+                            </ComboBox>
+                            <Button
+                                id="clearFiltersBtn"
+                                text="Clear Filters"
+                                icon="sap-icon://clear-filter"
+                                press="onClearFilters"/>
+                        </Toolbar>
+                    </content>
+                </Panel>
+
+                <!-- Employees Table -->
+                <Panel id="employeesTablePanel" headerText="Employee List">
+                    <content>
+                        <Table id="employeesTable"
+                            items="{/Employees}"
+                            growing="true"
+                            growingThreshold="20"
+                            mode="SingleSelect"
+                            class="sapUiMediumMargin">
+                            <headerToolbar>
+                                <Toolbar id="employeesTableToolbar">
+                                    <Title id="employeesTableTitle" text="Employees"/>
+                                    <ToolbarSpacer id="employeesTableSpacer"/>
+                                    <Text id="employeeCountText" text="Total: {/Employees/length}"/>
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="nameColumn">
+                                    <Text id="nameColumnHeader" text="Name"/>
+                                </Column>
+                                <Column id="employeeIdColumn">
+                                    <Text id="employeeIdColumnHeader" text="Employee ID"/>
+                                </Column>
+                                <Column id="departmentColumn">
+                                    <Text id="departmentColumnHeader" text="Department"/>
+                                </Column>
+                                <Column id="workHoursColumn">
+                                    <Text id="workHoursColumnHeader" text="Work Hours"/>
+                                </Column>
+                                <Column id="overtimeColumn">
+                                    <Text id="overtimeColumnHeader" text="Overtime"/>
+                                </Column>
+                                <Column id="riskLevelColumn">
+                                    <Text id="riskLevelColumnHeader" text="Risk Level"/>
+                                </Column>
+                                <Column id="actionsColumn">
+                                    <Text id="actionsColumnHeader" text="Actions"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="employeeListItem" press="onEmployeePress">
+                                    <cells>
+                                        <VBox id="employeeNameBox">
+                                            <Text id="employeeNameText" text="{name}" class="sapUiMediumText"/>
+                                            <Text id="employeeEmailText" text="{email}" class="sapUiTinyText"/>
+                                        </VBox>
+                                        <Text id="employeeIdText" text="{ID}"/>
+                                        <Text id="employeeDepartmentText" text="{department}"/>
+                                        <Text id="employeeWorkHoursText" text="{workMetrics/0/work_hours} hrs"/>
+                                        <Text id="employeeOvertimeText" text="{workMetrics/0/overtime_hours} hrs"/>
+                                        <ObjectStatus id="employeeRiskStatus"
+                                            text="{burnoutMetrics/0/risk_level}"
+                                            state="{
+                                                path: 'burnoutMetrics/0/risk_level',
+                                                formatter: '.formatRiskState'
+                                            }"/>
+                                        <HBox id="employeeActionsBox">
+                                            <Button id="viewEmployeeBtn"
+                                                icon="sap-icon://detail-view"
+                                                tooltip="View Details"
+                                                press="onViewEmployeeDetails"
+                                                class="sapUiTinyMarginEnd"/>
+                                            <Button id="generateEmployeeMetricsBtn"
+                                                icon="sap-icon://generate-shortcut"
+                                                tooltip="Generate Metrics"
+                                                press="onGenerateEmployeeMetrics"/>
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

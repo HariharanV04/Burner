@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@qdrant/js-client-rest": "^1.15.0",
     "@sap/cds": "^9",
     "axios": "^1.11.0",
     "dotenv": "^17.2.1",
@@ -21,7 +22,8 @@
     "@cap-js/sqlite": "^2"
   },
   "scripts": {
-    "start": "cds serve"
+    "start": "cds serve",
+    "watch-burner-ui": "cds watch --open burner-ui/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {

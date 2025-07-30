@@ -1,0 +1,166 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "burnerui",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.18.3",
+      "toolsId": "9fcc56ca-58cb-4d1d-a408-7b9568c645bc"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/burner/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.138.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.commons": {},
+        "sap.viz": {},
+        "sap.ui.table": {},
+        "sap.ui.layout": {},
+        "sap.uxap": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "burnerui.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "detailPages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "burnerui.view",
+        "async": true
+      },
+      "routes": [
+        {
+          "name": "RouteMain",
+          "pattern": "",
+          "target": "TargetMain"
+        },
+        {
+          "name": "RouteEmployees", 
+          "pattern": "employees",
+          "target": "TargetEmployees"
+        },
+        {
+          "name": "RouteAnalytics",
+          "pattern": "analytics", 
+          "target": "TargetAnalytics"
+        },
+        {
+          "name": "RouteKnowledgeBase",
+          "pattern": "knowledge",
+          "target": "TargetKnowledgeBase"
+        },
+        {
+          "name": "RouteEmployeeDetail",
+          "pattern": "employees/{employeeId}",
+          "target": "TargetEmployeeDetail"
+        }
+      ],
+      "targets": {
+        "TargetMain": {
+          "id": "Main",
+          "name": "Main",
+          "controlAggregation": "detailPages",
+          "controlId": "app"
+        },
+        "TargetEmployees": {
+          "id": "Employees", 
+          "name": "Employees",
+          "controlAggregation": "detailPages",
+          "controlId": "app"
+        },
+        "TargetAnalytics": {
+          "id": "Analytics",
+          "name": "Analytics", 
+          "controlAggregation": "detailPages",
+          "controlId": "app"
+        },
+        "TargetKnowledgeBase": {
+          "id": "KnowledgeBase",
+          "name": "KnowledgeBase",
+          "controlAggregation": "detailPages", 
+          "controlId": "app"
+        },
+        "TargetEmployeeDetail": {
+          "id": "EmployeeDetail",
+          "name": "EmployeeDetail",
+          "controlAggregation": "detailPages",
+          "controlId": "app"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "burnerui.view.App",
+      "type": "XML",
+      "id": "App",
+      "async": true
+    }
+  }
+}

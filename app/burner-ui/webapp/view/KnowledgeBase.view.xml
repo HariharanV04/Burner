@@ -1,0 +1,136 @@
+<mvc:View
+    controllerName="burnerui.controller.KnowledgeBase"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core">
+
+    <Page id="knowledgeBasePage" title="Knowledge Base Management" showNavButton="false">
+        <content>
+            <VBox id="knowledgeBaseContainer" class="sapUiMediumMargin">
+
+                <!-- Header -->
+                <Panel id="knowledgeBaseHeaderPanel" class="sapUiMediumMarginBottom">
+                    <headerToolbar>
+                        <Toolbar id="knowledgeBaseHeaderToolbar">
+                            <Title id="knowledgeBaseTitle" text="Knowledge Base Management" level="H2"/>
+                            <ToolbarSpacer id="knowledgeBaseHeaderSpacer"/>
+                            <Button
+                                id="testAISystemBtn"
+                                text="Test AI System"
+                                icon="sap-icon://sys-monitor"
+                                press="onTestAISystem"
+                                class="sapUiTinyMarginEnd"/>
+                            <Button
+                                id="refreshKnowledgeBtn"
+                                text="Refresh"
+                                icon="sap-icon://refresh"
+                                press="onRefreshKnowledge"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="knowledgeBaseHeaderContent" class="sapUiMediumMargin">
+                            <Text id="knowledgeBaseDescription" text="Manage AI knowledge base files and monitor system status for burnout assessment capabilities." class="sapUiMediumText"/>
+                            <MessageStrip id="aiSystemStatusStrip" text="AI System Status: Loading..." type="Information" class="sapUiTinyMarginTop"/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- AI System Status -->
+                <Panel id="aiSystemStatusPanel" headerText="AI System Status" class="sapUiMediumMarginBottom">
+                    <content>
+                        <layout:Grid id="aiStatusGrid" defaultSpan="XL4 L4 M6 S12" class="sapUiMediumMargin">
+
+                            <!-- System Status -->
+                            <VBox id="aiSystemStatusBox" class="sapUiTinyMargin">
+                                <Text id="aiSystemStatusLabel" text="System Status:" class="sapUiTinyText"/>
+                                <ObjectStatus id="aiSystemStatus" text="Unknown" state="None"/>
+                            </VBox>
+
+                            <!-- Model Information -->
+                            <VBox id="modelInfoBox" class="sapUiTinyMargin">
+                                <Text id="modelInfoLabel" text="AI Model:" class="sapUiTinyText"/>
+                                <Text id="modelInfoText" text="Mistral AI" class="sapUiMediumText"/>
+                            </VBox>
+
+                            <!-- Knowledge Base Files -->
+                            <VBox id="knowledgeFilesCountBox" class="sapUiTinyMargin">
+                                <Text id="knowledgeFilesLabel" text="Knowledge Files:" class="sapUiTinyText"/>
+                                <Text id="knowledgeFilesCount" text="0" class="sapUiMediumText sapThemeHighlight-asColor"/>
+                            </VBox>
+
+                        </layout:Grid>
+                    </content>
+                </Panel>
+
+                <!-- Knowledge Base Files -->
+                <Panel id="knowledgeFilesPanel" headerText="Knowledge Base Files" class="sapUiMediumMarginBottom">
+                    <content>
+                        <Table id="knowledgeFilesTable"
+                            items="{/knowledgeFiles}"
+                            growing="true"
+                            growingThreshold="10"
+                            class="sapUiMediumMargin">
+                            <headerToolbar>
+                                <Toolbar id="knowledgeFilesToolbar">
+                                    <Title id="knowledgeFilesTitle" text="Knowledge Files"/>
+                                    <ToolbarSpacer id="knowledgeFilesSpacer"/>
+                                    <Text id="knowledgeFilesTotalText" text="Total Files: {/knowledgeFiles/length}"/>
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="knowledgeFileNameColumn">
+                                    <Text id="knowledgeFileNameHeader" text="File Name"/>
+                                </Column>
+                                <Column id="knowledgeFileTypeColumn">
+                                    <Text id="knowledgeFileTypeHeader" text="Type"/>
+                                </Column>
+                                <Column id="knowledgeFileSizeColumn">
+                                    <Text id="knowledgeFileSizeHeader" text="Size"/>
+                                </Column>
+                                <Column id="knowledgeFileStatusColumn">
+                                    <Text id="knowledgeFileStatusHeader" text="Status"/>
+                                </Column>
+                                <Column id="knowledgeFileActionsColumn">
+                                    <Text id="knowledgeFileActionsHeader" text="Actions"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="knowledgeFileListItem" press="onKnowledgeFilePress">
+                                    <cells>
+                                        <Text id="knowledgeFileName" text="{name}" class="sapUiMediumText"/>
+                                        <Text id="knowledgeFileType" text="{type}"/>
+                                        <Text id="knowledgeFileSize" text="{size}"/>
+                                        <ObjectStatus id="knowledgeFileStatus"
+                                            text="{status}"
+                                            state="{
+                                                path: 'status',
+                                                formatter: '.formatFileStatus'
+                                            }"/>
+                                        <HBox id="knowledgeFileActionsBox">
+                                            <Button id="viewKnowledgeFileBtn"
+                                                icon="sap-icon://detail-view"
+                                                tooltip="View File"
+                                                press="onViewKnowledgeFile"
+                                                class="sapUiTinyMarginEnd"/>
+                                            <Button id="editKnowledgeFileBtn"
+                                                icon="sap-icon://edit"
+                                                tooltip="Edit File"
+                                                press="onEditKnowledgeFile"
+                                                class="sapUiTinyMarginEnd"/>
+                                            <Button id="deleteKnowledgeFileBtn"
+                                                icon="sap-icon://delete"
+                                                tooltip="Delete File"
+                                                press="onDeleteKnowledgeFile"/>
+                                        </HBox>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

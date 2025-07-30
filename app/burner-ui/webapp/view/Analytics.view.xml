@@ -1,0 +1,104 @@
+<mvc:View
+    controllerName="burnerui.controller.Analytics"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core">
+
+    <Page id="analyticsPage" title="Analytics &amp; Insights" showNavButton="false">
+        <content>
+            <VBox id="analyticsContainer" class="sapUiMediumMargin">
+
+                <!-- Header -->
+                <Panel id="analyticsHeaderPanel" class="sapUiMediumMarginBottom">
+                    <headerToolbar>
+                        <Toolbar id="analyticsHeaderToolbar">
+                            <Title id="analyticsTitle" text="Analytics &amp; Insights" level="H2"/>
+                            <ToolbarSpacer id="analyticsHeaderSpacer"/>
+                            <Button
+                                id="refreshAnalyticsBtn"
+                                text="Refresh Data"
+                                icon="sap-icon://refresh"
+                                press="onRefreshAnalytics"/>
+                        </Toolbar>
+                    </headerToolbar>
+                    <content>
+                        <VBox id="analyticsHeaderContent" class="sapUiMediumMargin">
+                            <Text id="analyticsDescription" text="Comprehensive analytics and insights on employee burnout risks and trends." class="sapUiMediumText"/>
+                        </VBox>
+                    </content>
+                </Panel>
+
+                <!-- Risk Analysis Table -->
+                <Panel id="riskAnalysisPanel" headerText="Risk Analysis" class="sapUiMediumMarginBottom">
+                    <content>
+                        <Table id="riskAnalysisTable"
+                            items="{/BurnoutMetrics}"
+                            growing="true"
+                            growingThreshold="20"
+                            class="sapUiMediumMargin">
+                            <headerToolbar>
+                                <Toolbar id="riskAnalysisToolbar">
+                                    <Title id="riskAnalysisTitle" text="Burnout Risk Analysis"/>
+                                    <ToolbarSpacer id="riskAnalysisSpacer"/>
+                                    <Button
+                                        id="exportAnalyticsBtn"
+                                        text="Export Data"
+                                        icon="sap-icon://download"
+                                        press="onExportAnalytics"/>
+                                </Toolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column id="analyticsEmployeeColumn">
+                                    <Text id="analyticsEmployeeHeader" text="Employee"/>
+                                </Column>
+                                <Column id="analyticsDepartmentColumn">
+                                    <Text id="analyticsDepartmentHeader" text="Department"/>
+                                </Column>
+                                <Column id="analyticsRiskColumn">
+                                    <Text id="analyticsRiskHeader" text="Risk Level"/>
+                                </Column>
+                                <Column id="analyticsCauseColumn">
+                                    <Text id="analyticsCauseHeader" text="Primary Cause"/>
+                                </Column>
+                                <Column id="analyticsRecommendationColumn">
+                                    <Text id="analyticsRecommendationHeader" text="Recommendation"/>
+                                </Column>
+                                <Column id="analyticsDateColumn">
+                                    <Text id="analyticsDateHeader" text="Assessment Date"/>
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem id="analyticsListItem" press="onAnalyticsItemPress">
+                                    <cells>
+                                        <VBox id="analyticsEmployeeBox">
+                                            <Text id="analyticsEmployeeName" text="{employee/name}" class="sapUiMediumText"/>
+                                            <Text id="analyticsEmployeeId" text="{employee_ID}" class="sapUiTinyText"/>
+                                        </VBox>
+                                        <Text id="analyticsEmployeeDept" text="{employee/department}"/>
+                                        <ObjectStatus id="analyticsRiskStatus"
+                                            text="{risk_level}"
+                                            state="{
+                                                path: 'risk_level',
+                                                formatter: '.formatRiskState'
+                                            }"/>
+                                        <Text id="analyticsCauseText" text="{cause}"/>
+                                        <Text id="analyticsRecommendationText" text="{recommendation}" class="sapUiTinyText"/>
+                                        <Text id="analyticsDateText" text="{
+                                            path: 'createdAt',
+                                            type: 'sap.ui.model.odata.type.DateTimeOffset',
+                                            formatOptions: {
+                                                style: 'short'
+                                            }
+                                        }"/>
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </content>
+                </Panel>
+
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

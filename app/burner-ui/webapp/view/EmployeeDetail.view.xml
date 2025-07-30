@@ -1,0 +1,243 @@
+<mvc:View
+    controllerName="burnerui.controller.EmployeeDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:layout="sap.ui.layout"
+    xmlns:uxap="sap.uxap">
+
+    <uxap:ObjectPageLayout id="employeeDetailPage" showTitleInHeaderContent="true">
+        
+        <uxap:headerTitle>
+            <uxap:ObjectPageDynamicHeaderTitle>
+                <uxap:expandedHeading>
+                    <Title text="{/employee/name}" level="H1"/>
+                </uxap:expandedHeading>
+                <uxap:snappedHeading>
+                    <Title text="{/employee/name}" level="H2"/>
+                </uxap:snappedHeading>
+                <uxap:expandedContent>
+                    <Text text="{/employee/role} • {/employee/department}"/>
+                </uxap:expandedContent>
+                <uxap:snappedContent>
+                    <Text text="{/employee/ID}"/>
+                </uxap:snappedContent>
+                <uxap:actions>
+                    <Button
+                        text="Generate Burnout Assessment"
+                        icon="sap-icon://generate-shortcut"
+                        type="Emphasized"
+                        press="onGenerateAssessment"/>
+                    <Button
+                        text="Edit Employee"
+                        icon="sap-icon://edit"
+                        press="onEditEmployee"/>
+                </uxap:actions>
+            </uxap:ObjectPageDynamicHeaderTitle>
+        </uxap:headerTitle>
+
+        <uxap:headerContent>
+            <layout:HorizontalLayout>
+                <f:Card width="200px" class="sapUiMediumMarginEnd">
+                    <f:content>
+                        <VBox class="sapUiMediumMargin">
+                            <Text text="Employee ID" class="sapUiTinyText"/>
+                            <Text text="{/employee/ID}" class="sapUiMediumText"/>
+                            <Text text="Department" class="sapUiTinyText sapUiTinyMarginTop"/>
+                            <Text text="{/employee/department}" class="sapUiMediumText"/>
+                            <Text text="Role" class="sapUiTinyText sapUiTinyMarginTop"/>
+                            <Text text="{/employee/role}" class="sapUiMediumText"/>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+                
+                <f:Card width="200px" class="sapUiMediumMarginEnd">
+                    <f:content>
+                        <VBox class="sapUiMediumMargin">
+                            <Text text="Current Risk Level" class="sapUiTinyText"/>
+                            <ObjectStatus
+                                text="{/burnoutMetrics/risk_level}"
+                                state="{
+                                    path: '/burnoutMetrics/risk_level',
+                                    formatter: '.formatRiskState'
+                                }"
+                                class="sapUiMediumMarginTop"/>
+                            <Text text="Last Assessment" class="sapUiTinyText sapUiTinyMarginTop"/>
+                            <Text text="{
+                                path: '/burnoutMetrics/generatedAt',
+                                formatter: '.formatDate'
+                            }" class="sapUiMediumText"/>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+            </layout:HorizontalLayout>
+        </uxap:headerContent>
+
+        <uxap:sections>
+            
+            <!-- Work Metrics Section -->
+            <uxap:ObjectPageSection id="workMetricsSection" title="Work Metrics">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Current Work Pattern">
+                        <uxap:blocks>
+                            <layout:HorizontalLayout>
+                                <f:Card width="300px" class="sapUiMediumMarginEnd">
+                                    <f:header>
+                                        <f:Header title="Work Hours"/>
+                                    </f:header>
+                                    <f:content>
+                                        <VBox class="sapUiMediumMargin">
+                                            <HBox class="sapUiTinyMarginBottom">
+                                                <Text text="Regular Hours: " class="sapUiMediumText"/>
+                                                <Text text="{/workMetrics/work_hours} hrs/day" class="sapUiMediumText sapThemeHighlight-asColor"/>
+                                            </HBox>
+                                            <HBox class="sapUiTinyMarginBottom">
+                                                <Text text="Overtime: " class="sapUiMediumText"/>
+                                                <Text text="{/workMetrics/overtime_hours} hrs/week" class="sapUiMediumText sapThemeHighlight-asColor"/>
+                                            </HBox>
+                                            <HBox class="sapUiTinyMarginBottom">
+                                                <Text text="Commute: " class="sapUiMediumText"/>
+                                                <Text text="{/workMetrics/commute_hours} hrs/day" class="sapUiMediumText sapThemeHighlight-asColor"/>
+                                            </HBox>
+                                            <HBox>
+                                                <Text text="Shift: " class="sapUiMediumText"/>
+                                                <Text text="{/workMetrics/shift}" class="sapUiMediumText sapThemeHighlight-asColor"/>
+                                            </HBox>
+                                        </VBox>
+                                    </f:content>
+                                </f:Card>
+
+                                <f:Card width="300px">
+                                    <f:header>
+                                        <f:Header title="Time Off"/>
+                                    </f:header>
+                                    <f:content>
+                                        <VBox class="sapUiMediumMargin">
+                                            <HBox class="sapUiTinyMarginBottom">
+                                                <Text text="Leave Taken: " class="sapUiMediumText"/>
+                                                <Text text="{/workMetrics/leave_taken} days" class="sapUiMediumText sapThemeHighlight-asColor"/>
+                                            </HBox>
+                                            <HBox>
+                                                <Text text="Vacation Taken: " class="sapUiMediumText"/>
+                                                <Text text="{/workMetrics/vacation_taken} days" class="sapUiMediumText sapThemeHighlight-asColor"/>
+                                            </HBox>
+                                        </VBox>
+                                    </f:content>
+                                </f:Card>
+                            </layout:HorizontalLayout>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Burnout Assessment Section -->
+            <uxap:ObjectPageSection id="burnoutSection" title="Burnout Assessment">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="AI-Powered Risk Analysis">
+                        <uxap:blocks>
+                            <VBox>
+                                <f:Card class="sapUiMediumMarginBottom">
+                                    <f:header>
+                                        <f:Header title="Risk Assessment"/>
+                                    </f:header>
+                                    <f:content>
+                                        <VBox class="sapUiMediumMargin">
+                                            <HBox class="sapUiMediumMarginBottom">
+                                                <Text text="Risk Level: " class="sapUiMediumText"/>
+                                                <ObjectStatus
+                                                    text="{/burnoutMetrics/risk_level}"
+                                                    state="{
+                                                        path: '/burnoutMetrics/risk_level',
+                                                        formatter: '.formatRiskState'
+                                                    }"
+                                                    class="sapUiTinyMarginBegin"/>
+                                            </HBox>
+                                            <VBox>
+                                                <Text text="Primary Causes:" class="sapUiMediumText sapUiMediumMarginBottom"/>
+                                                <FormattedText
+                                                    htmlText="{
+                                                        path: '/burnoutMetrics/cause',
+                                                        formatter: '.formatHtmlText'
+                                                    }"
+                                                    class="sapUiMediumMarginBottom"/>
+                                            </VBox>
+                                        </VBox>
+                                    </f:content>
+                                </f:Card>
+
+                                <f:Card>
+                                    <f:header>
+                                        <f:Header title="AI Recommendations"/>
+                                    </f:header>
+                                    <f:content>
+                                        <VBox class="sapUiMediumMargin">
+                                            <FormattedText
+                                                htmlText="{
+                                                    path: '/burnoutMetrics/recommendation',
+                                                    formatter: '.formatHtmlText'
+                                                }"/>
+                                        </VBox>
+                                    </f:content>
+                                </f:Card>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+            <!-- Actions Section -->
+            <uxap:ObjectPageSection id="actionsSection" title="Actions">
+                <uxap:subSections>
+                    <uxap:ObjectPageSubSection title="Available Actions">
+                        <uxap:blocks>
+                            <VBox>
+                                <Panel headerText="Quick Actions" class="sapUiMediumMarginBottom">
+                                    <content>
+                                        <layout:HorizontalLayout class="sapUiMediumMargin">
+                                            <Button
+                                                text="Regenerate Assessment"
+                                                icon="sap-icon://refresh"
+                                                press="onRegenerateAssessment"
+                                                class="sapUiMediumMarginEnd"/>
+                                            <Button
+                                                text="Schedule Check-in"
+                                                icon="sap-icon://appointment-2"
+                                                press="onScheduleCheckin"
+                                                class="sapUiMediumMarginEnd"/>
+                                            <Button
+                                                text="View History"
+                                                icon="sap-icon://history"
+                                                press="onViewHistory"
+                                                class="sapUiMediumMarginEnd"/>
+                                            <Button
+                                                text="Export Report"
+                                                icon="sap-icon://download"
+                                                press="onExportReport"/>
+                                        </layout:HorizontalLayout>
+                                    </content>
+                                </Panel>
+
+                                <Panel headerText="Risk Mitigation">
+                                    <content>
+                                        <VBox class="sapUiMediumMargin">
+                                            <Text text="Based on the AI assessment, consider these immediate actions:" class="sapUiMediumText sapUiMediumMarginBottom"/>
+                                            <List items="{/recommendationActions}">
+                                                <StandardListItem
+                                                    title="{title}"
+                                                    description="{description}"
+                                                    icon="{icon}"
+                                                    type="Active"
+                                                    press="onActionPress"/>
+                                            </List>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+                            </VBox>
+                        </uxap:blocks>
+                    </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+            </uxap:ObjectPageSection>
+
+        </uxap:sections>
+    </uxap:ObjectPageLayout>
+</mvc:View>

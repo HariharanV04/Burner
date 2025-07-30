@@ -1,0 +1,70 @@
+<mvc:View controllerName="burnerui.controller.App"
+    displayBlock="true"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f">
+    <f:ShellBar
+        id="shellBar"
+        title="Employee Burnout Management System"
+        homeIcon="sap-icon://home"
+        showMenuButton="true"
+        menuButtonPressed="onMenuButtonPress"
+        homeIconPressed="onHomePress">
+        <f:profile>
+            <Avatar
+                src="sap-icon://person-placeholder"
+                displaySize="S"
+                press="onAvatarPress"/>
+        </f:profile>
+    </f:ShellBar>
+
+    <SplitApp id="app" mode="HideMode">
+        <masterPages>
+            <Page id="masterPage" title="Navigation" showNavButton="false">
+                <content>
+                    <List id="navigationList" itemPress="onNavigationItemPress">
+                        <StandardListItem
+                            id="navDashboard"
+                            title="Dashboard"
+                            icon="sap-icon://home"
+                            type="Navigation">
+                            <customData>
+                                <core:CustomData key="route" value="RouteMain" xmlns:core="sap.ui.core"/>
+                            </customData>
+                        </StandardListItem>
+                        <StandardListItem
+                            id="navEmployees"
+                            title="Employees"
+                            icon="sap-icon://employee"
+                            type="Navigation">
+                            <customData>
+                                <core:CustomData key="route" value="RouteEmployees" xmlns:core="sap.ui.core"/>
+                            </customData>
+                        </StandardListItem>
+                        <StandardListItem
+                            id="navAnalytics"
+                            title="Analytics"
+                            icon="sap-icon://business-objects-experience"
+                            type="Navigation">
+                            <customData>
+                                <core:CustomData key="route" value="RouteAnalytics" xmlns:core="sap.ui.core"/>
+                            </customData>
+                        </StandardListItem>
+                        <StandardListItem
+                            id="navKnowledge"
+                            title="Knowledge Base"
+                            icon="sap-icon://learning-assistant"
+                            type="Navigation">
+                            <customData>
+                                <core:CustomData key="route" value="RouteKnowledgeBase" xmlns:core="sap.ui.core"/>
+                            </customData>
+                        </StandardListItem>
+                    </List>
+                </content>
+            </Page>
+        </masterPages>
+        <detailPages>
+            <!-- Detail pages will be loaded by router -->
+        </detailPages>
+    </SplitApp>
+</mvc:View>

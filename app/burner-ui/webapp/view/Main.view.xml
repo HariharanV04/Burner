@@ -1,0 +1,394 @@
+<mvc:View
+    controllerName="burnerui.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:suite="sap.suite.ui.commons"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core">
+
+    <Page id="mainPage" title="Employee Burnout Management Dashboard" showNavButton="false">
+        <content>
+            <ScrollContainer id="dashboardScrollContainer" height="100%" vertical="true">
+                <VBox id="dashboardMainContainer" class="sapUiMediumMargin">
+
+                    <!-- Dashboard Header with Actions -->
+                    <Panel id="dashboardHeaderPanel" class="sapUiMediumMarginBottom">
+                        <headerToolbar>
+                            <Toolbar id="dashboardHeaderToolbar">
+                                <Title id="dashboardTitle" text="Burnout Management Dashboard" level="H2"/>
+                                <ToolbarSpacer id="dashboardHeaderSpacer"/>
+                                <Button
+                                    id="refreshAllDataBtn"
+                                    text="Refresh All Data"
+                                    icon="sap-icon://refresh"
+                                    press="onRefreshDashboard"
+                                    class="sapUiTinyMarginEnd"/>
+                                <Button
+                                    id="generateAllMetricsBtn"
+                                    text="Generate All Metrics"
+                                    icon="sap-icon://generate-shortcut"
+                                    type="Emphasized"
+                                    press="onGenerateAllMetrics"/>
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <VBox id="dashboardHeaderContent" class="sapUiMediumMargin">
+                                <Text id="dashboardDescription" text="Monitor employee wellbeing, analyze burnout risks, and take proactive measures to maintain a healthy workplace." class="sapUiMediumText"/>
+                                <MessageStrip id="systemStatusStrip" text="AI System Online - Knowledge Base Loaded - Ready for Analysis" type="Success" class="sapUiTinyMarginTop"/>
+                            </VBox>
+                        </content>
+                    </Panel>
+
+                    <!-- Primary KPI Cards Row -->
+                    <Panel id="primaryKpiPanel" headerText="Key Performance Indicators" class="sapUiMediumMarginBottom">
+                        <content>
+                            <layout:Grid id="primaryKpiGrid" defaultSpan="XL3 L4 M6 S12" class="sapUiMediumMargin">
+
+                                <!-- Total Employees Card -->
+                                <Panel id="totalEmployeesCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="totalEmployeesBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="totalEmployeesHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="totalEmployeesLabel" text="Total Employees" class="sapUiTinyText"/>
+                                                <core:Icon id="totalEmployeesIcon" src="sap-icon://employee" color="#0070f2"/>
+                                            </HBox>
+                                            <Text id="totalEmployeesText" text="0" class="sapUiLargeText sapThemeHighlight-asColor"/>
+                                            <Text id="totalEmployeesSubtext" text="Active Workforce" class="sapUiTinyText"/>
+                                            <Button id="viewEmployeesBtn" text="View All" type="Transparent" press="onViewEmployees" class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <!-- High Risk Employees Card -->
+                                <Panel id="highRiskCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="highRiskBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="highRiskHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="highRiskLabel" text="High Risk" class="sapUiTinyText"/>
+                                                <core:Icon id="highRiskIcon" src="sap-icon://warning" color="#d32f2f"/>
+                                            </HBox>
+                                            <Text id="highRiskText" text="0" class="sapUiLargeText"/>
+                                            <Text id="highRiskSubtext" text="Employees at Risk" class="sapUiTinyText"/>
+                                            <Button id="viewHighRiskBtn" text="View Details" type="Transparent" press="onViewHighRiskEmployees" class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <!-- Average Work Hours Card -->
+                                <Panel id="avgWorkHoursCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="avgWorkHoursBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="avgWorkHoursHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="avgWorkHoursLabel" text="Avg Work Hours" class="sapUiTinyText"/>
+                                                <core:Icon id="avgWorkHoursIcon" src="sap-icon://time-entry-request" color="#ff9800"/>
+                                            </HBox>
+                                            <Text id="avgWorkHoursText" text="0" class="sapUiLargeText sapThemeHighlight-asColor"/>
+                                            <Text id="avgWorkHoursSubtext" text="Hours per Week" class="sapUiTinyText"/>
+                                            <Button id="viewWorkHoursBtn" text="Analytics" type="Transparent" press="onViewAnalytics" class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <!-- AI Assessments Card -->
+                                <Panel id="aiAssessmentsCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="aiAssessmentsBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="aiAssessmentsHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="aiAssessmentsLabel" text="AI Assessments" class="sapUiTinyText"/>
+                                                <core:Icon id="aiAssessmentsIcon" src="sap-icon://learning-assistant" color="#4caf50"/>
+                                            </HBox>
+                                            <Text id="aiAssessmentsText" text="0" class="sapUiLargeText sapThemeHighlight-asColor"/>
+                                            <Text id="aiAssessmentsSubtext" text="Generated" class="sapUiTinyText"/>
+                                            <Button id="manageKnowledgeBtn" text="Manage KB" type="Transparent" press="onManageKnowledge" class="sapUiTinyMarginTop"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                            </layout:Grid>
+                        </content>
+                    </Panel>
+
+                    <!-- Secondary KPI Cards Row -->
+                    <Panel id="secondaryKpiPanel" headerText="Additional Metrics" class="sapUiMediumMarginBottom">
+                        <content>
+                            <layout:Grid id="secondaryKpiGrid" defaultSpan="XL2 L3 M4 S6" class="sapUiMediumMargin">
+
+                                <!-- Critical Risk Card -->
+                                <Panel id="criticalRiskCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="criticalRiskBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="criticalRiskHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="criticalRiskLabel" text="Critical Risk" class="sapUiTinyText"/>
+                                                <core:Icon id="criticalRiskIcon" src="sap-icon://alert" color="#d32f2f"/>
+                                            </HBox>
+                                            <Text id="criticalRiskText" text="0" class="sapUiLargeText"/>
+                                            <Text id="criticalRiskSubtext" text="Immediate Action" class="sapUiTinyText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <!-- Average Overtime Card -->
+                                <Panel id="avgOvertimeCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="avgOvertimeBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="avgOvertimeHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="avgOvertimeLabel" text="Avg Overtime" class="sapUiTinyText"/>
+                                                <core:Icon id="avgOvertimeIcon" src="sap-icon://overtime" color="#ff9800"/>
+                                            </HBox>
+                                            <Text id="avgOvertimeText" text="0" class="sapUiLargeText"/>
+                                            <Text id="avgOvertimeSubtext" text="Hours per Week" class="sapUiTinyText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <!-- Average Vacation Card -->
+                                <Panel id="avgVacationCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="avgVacationBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="avgVacationHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="avgVacationLabel" text="Avg Vacation" class="sapUiTinyText"/>
+                                                <core:Icon id="avgVacationIcon" src="sap-icon://flight" color="#4caf50"/>
+                                            </HBox>
+                                            <Text id="avgVacationText" text="0" class="sapUiLargeText"/>
+                                            <Text id="avgVacationSubtext" text="Days Taken" class="sapUiTinyText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <!-- Department Count Card -->
+                                <Panel id="departmentCountCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="departmentCountBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="departmentCountHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="departmentCountLabel" text="Departments" class="sapUiTinyText"/>
+                                                <core:Icon id="departmentCountIcon" src="sap-icon://org-chart" color="#9c27b0"/>
+                                            </HBox>
+                                            <Text id="departmentCountText" text="0" class="sapUiLargeText"/>
+                                            <Text id="departmentCountSubtext" text="Active Departments" class="sapUiTinyText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <!-- Risk Trend Card -->
+                                <Panel id="riskTrendCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="riskTrendBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="riskTrendHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="riskTrendLabel" text="Risk Trend" class="sapUiTinyText"/>
+                                                <core:Icon id="riskTrendIcon" src="sap-icon://trend-up" color="#2196f3"/>
+                                            </HBox>
+                                            <Text id="riskTrendText" text="Stable" class="sapUiLargeText"/>
+                                            <Text id="riskTrendSubtext" text="This Week" class="sapUiTinyText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <!-- System Status Card -->
+                                <Panel id="systemStatusCard" class="sapUiTinyMargin dashboard-card" width="auto">
+                                    <content>
+                                        <VBox id="systemStatusBox" class="sapUiMediumMargin" alignItems="Center">
+                                            <HBox id="systemStatusHeader" justifyContent="SpaceBetween" width="100%">
+                                                <Text id="systemStatusLabel" text="AI System" class="sapUiTinyText"/>
+                                                <core:Icon id="systemStatusIcon" src="sap-icon://sys-monitor" color="#4caf50"/>
+                                            </HBox>
+                                            <ObjectStatus id="systemStatusText" text="Online" state="Success"/>
+                                            <Text id="systemStatusSubtext" text="Mistral AI Ready" class="sapUiTinyText"/>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                            </layout:Grid>
+                        </content>
+                    </Panel>
+
+                    <!-- Quick Navigation Panel -->
+                    <Panel id="quickNavigationPanel" headerText="Quick Navigation" class="sapUiMediumMarginBottom">
+                        <content>
+                            <layout:Grid id="quickNavigationGrid" defaultSpan="XL3 L4 M6 S12" class="sapUiMediumMargin">
+
+                                <!-- Employees Navigation -->
+                                <Button id="navToEmployeesBtn"
+                                    text="Employee Management"
+                                    icon="sap-icon://employee"
+                                    type="Emphasized"
+                                    width="100%"
+                                    press="onViewEmployees"
+                                    class="sapUiTinyMargin"/>
+
+                                <!-- Analytics Navigation -->
+                                <Button id="navToAnalyticsBtn"
+                                    text="Analytics &amp; Insights"
+                                    icon="sap-icon://business-objects-experience"
+                                    type="Default"
+                                    width="100%"
+                                    press="onViewAnalytics"
+                                    class="sapUiTinyMargin"/>
+
+                                <!-- Knowledge Base Navigation -->
+                                <Button id="navToKnowledgeBtn"
+                                    text="Knowledge Base"
+                                    icon="sap-icon://learning-assistant"
+                                    type="Default"
+                                    width="100%"
+                                    press="onManageKnowledge"
+                                    class="sapUiTinyMargin"/>
+
+                                <!-- Generate Metrics Action -->
+                                <Button id="generateMetricsActionBtn"
+                                    text="Generate All Metrics"
+                                    icon="sap-icon://generate-shortcut"
+                                    type="Accept"
+                                    width="100%"
+                                    press="onGenerateAllMetrics"
+                                    class="sapUiTinyMargin"/>
+
+                            </layout:Grid>
+                        </content>
+                    </Panel>
+
+                    <!-- Key Insights Panel -->
+                    <Panel id="keyInsightsPanel" headerText="Key Insights &amp; Recommendations" class="sapUiMediumMarginBottom">
+                        <content>
+                            <layout:Grid id="insightsGrid" defaultSpan="XL4 L4 M6 S12" class="sapUiMediumMargin">
+
+                                <!-- Highest Risk Department -->
+                                <VBox id="highestRiskDeptBox" class="sapUiTinyMargin">
+                                    <Text id="highestRiskDeptLabel" text="Highest Risk Department:" class="sapUiTinyText"/>
+                                    <Text id="highestRiskDeptText" text="-" class="sapUiMediumText sapThemeHighlight-asColor"/>
+                                </VBox>
+
+                                <!-- Most Common Risk Factor -->
+                                <VBox id="commonRiskFactorBox" class="sapUiTinyMargin">
+                                    <Text id="commonRiskFactorLabel" text="Most Common Risk Factor:" class="sapUiTinyText"/>
+                                    <Text id="commonRiskFactor" text="-" class="sapUiMediumText"/>
+                                </VBox>
+
+                                <!-- Employees Needing Attention -->
+                                <VBox id="attentionNeededBox" class="sapUiTinyMargin">
+                                    <Text id="attentionNeededLabel" text="Employees Needing Attention:" class="sapUiTinyText"/>
+                                    <Text id="attentionNeeded" text="0" class="sapUiMediumText sapThemeHighlight-asColor"/>
+                                </VBox>
+
+                            </layout:Grid>
+
+                            <!-- AI Recommendation -->
+                            <MessageStrip id="aiRecommendationStrip"
+                                text="System ready for analysis. Generate burnout metrics to get AI-powered insights."
+                                type="Information"
+                                class="sapUiMediumMargin"/>
+                        </content>
+                    </Panel>
+
+                    <!-- Dashboard Analytics Overview -->
+                    <Panel id="dashboardAnalyticsPanel" headerText="Risk Analytics Overview" class="sapUiMediumMarginBottom">
+                        <content>
+                            <layout:Grid id="analyticsGrid" defaultSpan="XL6 L6 M12 S12" class="sapUiMediumMargin">
+
+                                <!-- Risk Distribution Chart -->
+                                <Panel id="riskDistributionPanel" headerText="Risk Level Distribution" class="sapUiTinyMargin">
+                                    <content>
+                                        <VBox id="riskDistributionContainer" class="sapUiMediumMargin">
+                                            <VBox id="riskBarsContainer">
+                                                <!-- Risk bars will be dynamically added here -->
+                                                <Text id="riskChartPlaceholder" text="Risk distribution chart will be displayed here" class="sapUiMediumText"/>
+                                            </VBox>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                                <!-- Department Analysis Chart -->
+                                <Panel id="departmentAnalysisPanel" headerText="Department Risk Analysis" class="sapUiTinyMargin">
+                                    <content>
+                                        <VBox id="departmentAnalysisContainer" class="sapUiMediumMargin">
+                                            <VBox id="deptBarsContainer">
+                                                <!-- Department bars will be dynamically added here -->
+                                                <Text id="deptChartPlaceholder" text="Department analysis chart will be displayed here" class="sapUiMediumText"/>
+                                            </VBox>
+                                        </VBox>
+                                    </content>
+                                </Panel>
+
+                            </layout:Grid>
+                        </content>
+                    </Panel>
+
+                    <!-- Recent Activity -->
+                    <Panel id="recentActivityPanel" headerText="Recent Burnout Assessments" class="sapUiMediumMarginBottom">
+                        <headerToolbar>
+                            <Toolbar id="recentActivityToolbar">
+                                <Title id="recentActivityTitle" text="Recent Assessments"/>
+                                <ToolbarSpacer id="recentActivitySpacer"/>
+                                <Button id="viewAllAssessmentsBtn"
+                                    text="View All"
+                                    icon="sap-icon://detail-view"
+                                    press="onViewAnalytics"/>
+                            </Toolbar>
+                        </headerToolbar>
+                        <content>
+                            <Table id="recentAssessmentsTable"
+                                items="{/BurnoutMetrics}"
+                                growing="true"
+                                growingThreshold="5"
+                                mode="SingleSelect">
+                                <columns>
+                                    <Column id="recentEmployeeColumn">
+                                        <Text id="recentEmployeeColumnHeader" text="Employee"/>
+                                    </Column>
+                                    <Column id="recentDepartmentColumn">
+                                        <Text id="recentDepartmentColumnHeader" text="Department"/>
+                                    </Column>
+                                    <Column id="recentRiskLevelColumn">
+                                        <Text id="recentRiskLevelColumnHeader" text="Risk Level"/>
+                                    </Column>
+                                    <Column id="recentAssessmentDateColumn">
+                                        <Text id="recentAssessmentDateColumnHeader" text="Assessment Date"/>
+                                    </Column>
+                                    <Column id="recentActionsColumn">
+                                        <Text id="recentActionsColumnHeader" text="Actions"/>
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem id="recentAssessmentListItem" press="onEmployeePress">
+                                        <cells>
+                                            <VBox id="recentEmployeeInfoBox">
+                                                <Text id="recentEmployeeNameText" text="{employee/name}" class="sapUiMediumText"/>
+                                                <Text id="recentEmployeeIdText" text="{employee_ID}" class="sapUiTinyText"/>
+                                            </VBox>
+                                            <Text id="recentEmployeeDeptText" text="{employee/department}"/>
+                                            <ObjectStatus id="recentRiskLevelStatus"
+                                                text="{risk_level}"
+                                                state="{
+                                                    path: 'risk_level',
+                                                    formatter: '.formatRiskState'
+                                                }"/>
+                                            <Text id="recentAssessmentDateText" text="{
+                                                path: 'createdAt',
+                                                type: 'sap.ui.model.odata.type.DateTimeOffset',
+                                                formatOptions: {
+                                                    style: 'short'
+                                                }
+                                            }"/>
+                                            <HBox id="recentAssessmentActionsBox">
+                                                <Button id="recentViewDetailsBtn"
+                                                    icon="sap-icon://detail-view"
+                                                    tooltip="View Details"
+                                                    press="onViewEmployeeDetails"
+                                                    class="sapUiTinyMarginEnd"/>
+                                                <Button id="recentRegenerateBtn"
+                                                    icon="sap-icon://refresh"
+                                                    tooltip="Regenerate Assessment"
+                                                    press="onRegenerateAssessment"/>
+                                            </HBox>
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </content>
+                    </Panel>
+
+                </VBox>
+            </ScrollContainer>
+        </content>
+    </Page>
+</mvc:View>
